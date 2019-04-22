@@ -8,6 +8,7 @@ import { Row, Col, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { clearCourses, getCourses } from 'app/shared/reducers/course';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -16,16 +17,42 @@ export class Home extends React.Component<IHomeProp> {
     this.props.getSession();
   }
 
+  getAllCourses = () => {
+    this.props.getCourses();
+  };
+
+  clearAllCourses = () => {
+    this.props.clearCourses();
+  };
+
   render() {
-    const { account } = this.props;
+    let { account, courses, showCourse } = this.props;
+    console.log(showCourse);
     return (
       <Row>
         <Col md="9">
-          <h2>Welcome, Java Hipster!</h2>
+          <h2>Welcome, 九章全栈ReactSpring项目!</h2>
           <p className="lead">This is your homepage</p>
           {account && account.login ? (
             <div>
               <Alert color="success">You are logged in as user {account.login}.</Alert>
+              <button className="btn btn-primary" onClick={this.getAllCourses}>
+                显示所有课程
+              </button>{' '}
+              <button onClick={this.clearAllCourses} className="btn btn-primary">
+                清除
+              </button>
+              {courses &&
+                courses.map(course => (
+                  <div className="courseOutterTable">
+                    <div className="courseInnerTable">{course.courseName}</div>
+                    <div>{course.courseLocation}</div>
+                    <div>{course.courseContent}</div>
+                    <div>{course.teacherName}</div>
+                    <button>注册课程</button>
+                    <button>删除课程</button>
+                  </div>
+                ))}
             </div>
           ) : (
             <div>
@@ -48,46 +75,6 @@ export class Home extends React.Component<IHomeProp> {
               </Alert>
             </div>
           )}
-          <p>If you have any question on JHipster:</p>
-
-          <ul>
-            <li>
-              <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-                JHipster homepage
-              </a>
-            </li>
-            <li>
-              <a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-                JHipster on Stack Overflow
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-                JHipster bug tracker
-              </a>
-            </li>
-            <li>
-              <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-                JHipster public chat room
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com/java_hipster" target="_blank" rel="noopener noreferrer">
-                follow @java_hipster on Twitter
-              </a>
-            </li>
-          </ul>
-
-          <p>
-            If you like JHipster, do not forget to give us a star on{' '}
-            <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              Github
-            </a>
-            !
-          </p>
-        </Col>
-        <Col md="3" className="pad">
-          <span className="hipster rounded" />
         </Col>
       </Row>
     );
@@ -96,10 +83,12 @@ export class Home extends React.Component<IHomeProp> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  courses: storeState.course.courses,
+  showCourse: storeState.course.showCourse
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getSession, getCourses, clearCourses };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -17,6 +17,7 @@
     <properties>
         <!-- Build properties -->
         <maven.version>3.0.0</maven.version>
+        <lombok.version>1.18.2</lombok.version>
         <java.version>1.8</java.version>
         <scala.version>2.12.6</scala.version>
         <node.version>v8.12.0</node.version>
@@ -116,7 +117,12 @@
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster-framework</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -363,6 +369,11 @@
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
                         </path>
                         <!-- For JPA static metamodel generation -->
                         <path>

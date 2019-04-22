@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jiuzhang-tutor.iml" filepath="$PROJECT_DIR$/jiuzhang-tutor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/react-student-management.iml" filepath="$PROJECT_DIR$/react-student-management.iml" />
     </modules>
   </component>
 </project>
